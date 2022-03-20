@@ -11,7 +11,11 @@ const server = http.createServer(expressApp);
 const webSocket = new WebSocket.Server({ server });
 const connections = new Set<Client>();
 webSocket.on("connection", (socket, request) => {
-	const client = new Client(socket, request.socket.remoteAddress);
+	// Trust proxies
+	//@ts-ignore
+	const forwardedFor: string = request?.headers["x-forwarded-for"];
+	const IP = (forwardedFor?.split(", ")?.[0] ?? request.socket.remoteAddress);
+	const client = new Client(socket, IP);
 	connections.add(client);
 	socket.on("close", () => {
 		connections.delete(client);
