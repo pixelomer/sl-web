@@ -35,7 +35,7 @@ function ServerConnection() {
 		_this.currentLobby = null;
 		_this.trainCount = null;
 		const url = new URL(window.location);
-		url.protocol = "ws";
+		url.protocol = (url.protocol === "https:") ? "wss:" : "ws:";
 		_this._webSocket = new WebSocket(url.toString());
 		_this._webSocket.onmessage = function(event) {
 			const message = JSON.parse(event.data);
