@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>sl</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/index.css">
+		<noscript>
+			<style>
+				#home-menu { display: none; }
+				#javascript-menu { display: block !important; }
+			</style>
+		</noscript>
+	</head>
+	<body>
+		<pre id="sl"></pre>
+		<div id="configuration-overlay">
+			<div id="configuration-screen">
+				<div id="javascript-menu">
+					This application requires JavaScript.
+				</div>
+				<div id="home-menu">
+					<div class="button" onclick="createLobby()">Create Lobby</div><br>
+					<div class="button" onclick="activateMenu('join-menu')">Join Lobby</div><br>
+					<a onclick="hideElementWithId('configuration-overlay')">Hide this menu</a>
+				</div>
+				<div class="hidden" id="progress-menu">
+					<p id="progress-message"></p>
+				</div>
+				<div class="hidden" id="join-menu">
+					<input type="text" placeholder="Lobby Code" id="join-code"/><br>
+					<div class="button" onclick="showHomeMenu()">Go back</div>
+					<div class="green button" onclick="joinLobby()">Join</div>
+				</div>
+				<div class="hidden" id="error-menu">
+					<p id="error-message"></p>
+					<div class="button" onclick="showHomeMenu()">Go Home</div>
+				</div>
+				<div class="hidden" id="host-menu">
+					<b><div id="lobby-code"></div></b>
+					When all computers are ready, press "Go".<br>
+					(<span id="joined-count">0</span> computer<span id="joined-plural">s</span> in lobby)<br>
+					<div class="green button" onclick="startOrdering()">Go</div>
+				</div>
+				<div class="hidden" id="ordering-menu">
+					<span id="ordering-description">
+						<p>Order each computer from right to left.</p>
+						<div class="button" onclick="serverConnection.pickMe()">Select</div>
+					</span>
+					<b><span id="order-number"></span></b>
+				</div>
+			</div>
+			<footer>
+				Made by pixelomer.
+				<a target="_blank" href="https://github.com/pixelomer/sl-web">Fork on GitHub</a>
+			</footer>
+		</div>
+		<canvas id="canvas"></canvas>
+		<script src="server-connection.js" type="text/javascript"></script>
+		<script src="train.js" type="text/javascript"></script>
+		<script src="index.js" type="text/javascript"></script>
+	</body>
+</html>

@@ -1,0 +1,154 @@
+html, body {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+a {
+	text-decoration: underline;
+	font-size: 12px;
+	color: gray;
+	cursor: pointer;
+}
+
+#sl {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	min-height: 100%;
+}
+
+#lobby-code {
+	font-size: 30px;
+}
+
+#order-number {
+	font-size: 60px;
+}
+
+.button {
+	margin: 10px 0 10px 0;
+	display: inline-block;
+	padding: 10px 30px 10px 30px;
+	line-height: 20px;
+	color: white;
+	background-color: rgba(64, 64, 64, 1.0);
+	border-radius: 8px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: rgba(64, 64, 64, 0.8);
+}
+
+.button.green {
+	background-color: rgba(0, 128, 0, 1.0);
+}
+
+.button.green:hover {
+	background-color: rgba(0, 128, 0, 0.8);
+}
+
+#configuration-overlay {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+#configuration-screen {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+	text-align: center;
+	width: 500px;
+	height: 200px;
+	box-shadow: 6px 6px 3px rgb(128, 128, 128);
+	background-color: white;
+	border-radius: 10px;
+	border: 2px solid black;
+	margin: auto;
+}
+
+.hidden {
+	display: none !important;
+}
+
+canvas {
+	display: none;
+	width: 0;
+	height: 0;
+}
+
+noscript {
+	margin-top: 10px;
+	color: red;
+}
+
+footer {
+	position: absolute;
+	bottom: 3px;
+	left: 0;
+	right: 0;
+	width: 100%;
+	text-align: center;
+	color: gray;
+	line-height: 30px;
+	font-size: 13px;
+}
+
+#join-code {
+	height: 40px;
+	width: 200px;
+	text-align: center;
+	font-size: 20px;
+}
+
+#javascript-menu {
+	display: none;
+}
+
+#lobby-code {
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: black;
+		color: white;
+	}
+
+	#configuration-overlay {
+		background-color: rgba(255, 255, 255, 0.2);
+	}
+
+	#configuration-screen {
+		background-color: rgb(30, 30, 30);
+		box-shadow: none;
+	}
+
+	input[type=text] {
+		background-color: gray;
+		color: white;
+		border: none;
+	}
+}
