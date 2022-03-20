@@ -14,10 +14,6 @@ export class Client {
 	constructor(socket: WebSocket, IPAddress: string) {
 		this.IPAddress = IPAddress;
 		this.socket = socket;
-		const nearbyLobby = Lobby.forIP(IPAddress);
-		if (nearbyLobby != null) {
-			this.sendMessage("nearby-lobby", { code: nearbyLobby.code });
-		}
 		socket.on("message", (data) => {
 			let message: Message;
 			try {
@@ -34,6 +30,9 @@ export class Client {
 						return;
 					}
 					this.onCreateRequest();
+					break;
+				case "get-nearby-lobby":
+					this.notifyNearbyLobby();
 					break;
 				case "join":
 					const code = message.data?.code;
@@ -61,6 +60,13 @@ export class Client {
 		socket.on("close", () => {
 			this.onDisconnect();
 		})
+	}
+
+	notifyNearbyLobby() {
+		const nearbyLobby = Lobby.forIP(this.IPAddress);
+		if (nearbyLobby != null) {
+			this.sendMessage("nearby-lobby", { code: nearbyLobby.code });
+		}
 	}
 
 	onTrainLeavingRequest() {

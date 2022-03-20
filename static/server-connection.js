@@ -28,6 +28,9 @@ function ServerConnection() {
 	_this.trainLeaving = function() {
 		_this._request("train-leaving");
 	}
+	_this.requestNearbyLobby = function() {
+		_this._request("get-nearby-lobby");
+	}
 	_this.resetWebSocket = function(reason) {
 		_this.currentLobby = null;
 		_this.trainCount = null;

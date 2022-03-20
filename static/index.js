@@ -162,6 +162,11 @@ function showElementWithId(id) {
 	document.getElementById(id).classList.remove("hidden");
 }
 
+function showJoinMenu() {
+	activateMenu("join-menu");
+	serverConnection.requestNearbyLobby();
+}
+
 function activateMenu(menuName) {
 	for (const child of configScreen.children) {
 		if (child.tagName === "DIV") {
@@ -202,7 +207,12 @@ function createLobby() {
 }
 
 function joinLobby() {
-	const lobbyCode = document.getElementById("join-code").value;
+	const element = document.getElementById("join-code");
+	const lobbyCode = (element.value ?? "").trim();
+	if (lobbyCode === "") {
+		return;
+	}
+	element.value = "";
 	showProgressMenu("Joining lobby...");
 	serverConnection.requestJoin(lobbyCode);
 }
@@ -260,7 +270,10 @@ serverConnection.onstart = function() {
 }
 
 serverConnection.onnearbylobby = function(code) {
-	document.getElementById("join-code").value = code;
+	const element = document.getElementById("join-code");
+	if ((element.value ?? "").trim() === "") {
+		element.value = code;
+	}
 }
 
 window.onload = function() {
