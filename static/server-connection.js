@@ -1,3 +1,5 @@
+'use strict';
+
 function ServerConnection() {
 	if (!(this instanceof ServerConnection)) {
 		return new ServerConnection();
@@ -6,14 +8,13 @@ function ServerConnection() {
 	const _this = this;
 
 	/** @type {WebSocket} */
-	let webSocket;
-
+	_this._webSocket = null;
 	/** @type { { isHost: boolean, code: string, clientCount: number } } */
 	_this.currentLobby = null;
 	/** @type {number} */
 	_this.trainCount = null;
 	_this._request = function(action, data) {
-		webSocket.send(JSON.stringify({ action, data }));
+		_this._webSocket.send(JSON.stringify({ action, data }));
 	};
 	_this.requestJoin = function(code) {
 		_this._request("join", { code });
@@ -32,8 +33,8 @@ function ServerConnection() {
 		_this.trainCount = null;
 		const url = new URL(window.location);
 		url.protocol = "ws";
-		webSocket = new WebSocket(url.toString());
-		webSocket.onmessage = function(event) {
+		_this._webSocket = new WebSocket(url.toString());
+		_this._webSocket.onmessage = function(event) {
 			const message = JSON.parse(event.data);
 			if (message.action === "new-train") {
 				_this.onarrive();
@@ -69,7 +70,7 @@ function ServerConnection() {
 				_this.trainCount++;
 			}
 		}
-		webSocket.onclose = function(event) {
+		_this._webSocket.onclose = function(event) {
 			setTimeout(function() {
 				_this.resetWebSocket(event.reason);
 			}, 1000);
