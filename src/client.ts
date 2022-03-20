@@ -49,6 +49,9 @@ export class Client {
 				case "start-ordering":
 					this.onStartOrderingRequest();
 					break;
+				case "ping":
+					this.sendMessage("pong");
+					break;
 				case "train-leaving":
 					this.onTrainLeavingRequest();
 					break;

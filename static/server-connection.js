@@ -90,6 +90,10 @@ function ServerConnection() {
 	_this.onstartordering = function() {};
 	_this.onnearbylobby = function(code) {};
 
+	setInterval(function() {
+		_this._request("ping");
+	}, 20000);
+
 	_this.resetWebSocket();
 
 	return this;
