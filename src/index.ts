@@ -2,8 +2,32 @@ import express from "express";
 import http from "http";
 import WebSocket from "ws";
 import { Client } from "./client";
+import { ls } from "./fake-ls";
+
+const FAKE_LS_HOST = process.env.FAKE_LS_HOST;
 
 const expressApp = express();
+
+expressApp.use(async(request, response, next) => {
+	if ((FAKE_LS_HOST != null) && (request.hostname === FAKE_LS_HOST)) {
+		let output = await ls(request.path);
+		output = output
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/\n/g, "<br>");
+		response.send(
+`<!DOCTYPE html>
+<html>
+<body>
+  <pre>${output}</pre>
+</body>
+</html>`);
+	}
+	else {
+		next();
+	}
+});
+
 expressApp.get("*", express.static("static"));
 
 const server = http.createServer(expressApp);
