@@ -67,7 +67,9 @@ function resetMetrics() {
 	codeBlock.style.lineHeight = charHeight + "px";
 	
 	if ((new Date() - lastResizeDraw) >= 100) {
-		draw();
+		if (lastResizeDraw.getTime() !== 0) {
+			draw();
+		}
 		lastResizeDraw = new Date();
 	}
 }
