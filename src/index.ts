@@ -3,10 +3,13 @@ import http from "http";
 import WebSocket from "ws";
 import { Client } from "./client";
 import { ls } from "./fake-ls";
+import compression from "compression";
 
 const FAKE_LS_HOST = process.env.FAKE_LS_HOST;
 
 const expressApp = express();
+
+expressApp.use(compression());
 
 expressApp.use(async(request, response, next) => {
 	if ((FAKE_LS_HOST != null) && (request.hostname === FAKE_LS_HOST)) {
